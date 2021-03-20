@@ -6,10 +6,14 @@ public class ServerGroupStorage {
 
     private final String name;
 
+    private final Integer priority;
+
     private final Map<String, BungeeServer> servers;
 
-    public ServerGroupStorage(String name, Map<String, BungeeServer> servers) {
+    public ServerGroupStorage(String name, Integer priotory, Map<String, BungeeServer> servers) {
         this.name = name;
+
+        this.priority = priotory;
 
         this.servers = servers;
     }

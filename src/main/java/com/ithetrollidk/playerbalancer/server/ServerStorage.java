@@ -34,7 +34,7 @@ public class ServerStorage {
                 servers.put(serverName, new BungeeServer(key, serverName));
             }
 
-            this.groups.add(new ServerGroupStorage(key, servers));
+            this.groups.add(new ServerGroupStorage(key, (Integer) value.getOrDefault("priority", 0), servers));
         });
     }
 
