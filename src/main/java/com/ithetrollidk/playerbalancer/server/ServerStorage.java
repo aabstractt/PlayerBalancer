@@ -27,14 +27,14 @@ public class ServerStorage {
             throw new ServerException("Groups section not found");
         }
 
-        ((Map<String, Map<String, Object>>) config.get("groups")).forEach((key, value) -> {
+        ((Map<String, Map<String, Object>>) config.get("groups")).forEach((k, v) -> {
             Map<String, BungeeServer> servers = new HashMap<>();
 
-            for (String serverName : (List<String>) value.get("servers")) {
-                servers.put(serverName, new BungeeServer(key, serverName));
+            for (Map<String, Object> data : (List<Map<String, Object>>) v.get("servers")) {
+                servers.put(data.get("name").toString(), new BungeeServer(k, data.get("name").toString(), (Integer) data.get("slots")));
             }
 
-            this.groups.add(new ServerGroupStorage(key, (Integer) value.getOrDefault("priority", 0), servers));
+            this.groups.add(new ServerGroupStorage(k, (String) v.getOrDefault("priority", "NORMAL"), servers));
         });
     }
 
