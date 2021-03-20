@@ -1,5 +1,7 @@
 package com.ithetrollidk.playerbalancer;
 
+import com.ithetrollidk.playerbalancer.server.ServerException;
+import com.ithetrollidk.playerbalancer.server.ServerStorage;
 import dev.waterdog.plugin.Plugin;
 
 public class PlayerBalancer extends Plugin {
@@ -14,6 +16,10 @@ public class PlayerBalancer extends Plugin {
     public void onEnable() {
         instance = this;
 
-        System.out.println("test");
+        try {
+            ServerStorage.getInstance().init();
+        } catch (ServerException e) {
+            e.printStackTrace();
+        }
     }
 }
