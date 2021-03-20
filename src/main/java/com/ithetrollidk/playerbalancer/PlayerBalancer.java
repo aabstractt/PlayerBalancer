@@ -13,5 +13,7 @@ public class PlayerBalancer extends Plugin {
     @Override
     public void onEnable() {
         instance = this;
+
+        System.out.println("test");
     }
 }
