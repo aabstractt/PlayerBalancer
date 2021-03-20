@@ -1,11 +1,13 @@
 package com.ithetrollidk.playerbalancer.priority;
 
+import com.ithetrollidk.playerbalancer.priority.normal.FillerPriority;
+import com.ithetrollidk.playerbalancer.priority.normal.LowestPriority;
 import com.ithetrollidk.playerbalancer.priority.normal.NormalPriority;
 import com.ithetrollidk.playerbalancer.priority.random.RandomFillerPriority;
 import com.ithetrollidk.playerbalancer.priority.random.RandomLowestPriority;
 import com.ithetrollidk.playerbalancer.priority.random.RandomPriority;
-import com.ithetrollidk.playerbalancer.server.ServerException;
 import com.ithetrollidk.playerbalancer.server.ServerGroupStorage;
+import dev.waterdog.ProxyServer;
 
 import java.security.SecureRandom;
 import java.util.List;
@@ -25,19 +27,22 @@ public class PriorityHandler {
         return list.get(instance.nextInt(list.size()));
     }
 
-    public Priority getServerPriority(ServerGroupStorage group) throws ServerException {
+    public Priority getServerPriority(ServerGroupStorage group) {
         for(PriorityEnum priority : PriorityEnum.values()) {
             if (group.getPriority().equals(priority.getValue())) {
                 return priority.getPriority();
             }
         }
 
-        throw new ServerException("Server priority not found...");
+        ProxyServer.getInstance().getLogger().info("Priority not found... Using default priority");
+
+        return PriorityEnum.NORMAL.getPriority();
     }
 
     public enum PriorityEnum {
         NORMAL(PriorityHandler.NORMAL, new NormalPriority()),
-
+        LOWEST(PriorityHandler.LOWEST, new LowestPriority()),
+        FILLER(PriorityHandler.FILLER, new FillerPriority()),
         RANDOM(PriorityHandler.RANDOM, new RandomPriority()),
         RANDOM_LOWEST(PriorityHandler.RANDOM_LOWEST, new RandomLowestPriority()),
         RANDOM_FILLER(PriorityHandler.RANDOM_FILLER, new RandomFillerPriority());
