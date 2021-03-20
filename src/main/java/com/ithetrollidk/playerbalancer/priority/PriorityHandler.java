@@ -14,7 +14,8 @@ import java.util.List;
 
 public class PriorityHandler {
 
-    private static final SecureRandom instance = new SecureRandom();
+    private static final PriorityHandler instance = new PriorityHandler();
+    private static final SecureRandom secureRandom = new SecureRandom();
 
     private static final String NORMAL = "NORMAL";
     private final static String LOWEST = "LOWEST";
@@ -24,10 +25,14 @@ public class PriorityHandler {
     private static final String RANDOM_FILLER = "RANDOM_FILLER";
 
     public static <T> T random(List<T> list) {
-        return list.get(instance.nextInt(list.size()));
+        return list.get(secureRandom.nextInt(list.size()));
     }
 
-    public Priority getServerPriority(ServerGroupStorage group) {
+    public static PriorityHandler getInstance() {
+        return instance;
+    }
+
+    public Priority getGroupPriority(ServerGroupStorage group) {
         for(PriorityEnum priority : PriorityEnum.values()) {
             if (group.getPriority().equals(priority.getValue())) {
                 return priority.getPriority();
