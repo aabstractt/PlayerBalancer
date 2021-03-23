@@ -10,9 +10,9 @@ public class NormalPriority implements Priority {
     @Override
     public ServerInfo requestServer(ServerInfo targetServer, ServerGroupStorage group) {
         for (BungeeServer server : group.getServers().values()) {
-            if (server.getName().equals(targetServer.getServerName())) continue;
+            if (targetServer != null && server.getName().equals(targetServer.getServerName())) continue;
 
-            if (server.getServerInfo().getPlayers().size() < server.getMaxPlayers()) {
+            if (server.getServerInfo().getPlayers().size() < server.getStatus().getMaxPlayers()) {
                 return server.getServerInfo();
             }
         }

@@ -9,6 +9,4 @@ groups:
 
   Lobby:
     priority: NORMAL
-    servers:
-      - name: Lobby1
-        slots: 20
+    servers: ["Lobby1"]

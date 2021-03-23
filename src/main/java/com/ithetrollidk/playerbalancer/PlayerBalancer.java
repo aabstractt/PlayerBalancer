@@ -1,24 +1,44 @@
 package com.ithetrollidk.playerbalancer;
 
+import com.ithetrollidk.playerbalancer.config.Configuration;
+import com.ithetrollidk.playerbalancer.ping.StatusStorage;
 import com.ithetrollidk.playerbalancer.server.ServerException;
 import com.ithetrollidk.playerbalancer.server.ServerStorage;
 import dev.waterdog.plugin.Plugin;
+import org.yaml.snakeyaml.Yaml;
+import org.yaml.snakeyaml.constructor.CustomClassLoaderConstructor;
+
+import java.io.*;
 
 public class PlayerBalancer extends Plugin {
 
     private static PlayerBalancer instance;
 
+    private Configuration configuration;
+
     public static PlayerBalancer getInstance() {
         return instance;
+    }
+
+    public Configuration getConfiguration() {
+        return this.configuration;
     }
 
     @Override
     public void onEnable() {
         instance = this;
 
-        try {
+        this.saveResource("config.yml");
+
+        Yaml yaml = new Yaml(new CustomClassLoaderConstructor(Configuration.class.getClassLoader()));
+
+        try (InputStream in = new FileInputStream(this.getDataFolder().toString() + "/config.yml")) {
+            this.configuration = yaml.loadAs(in, Configuration.class);
+
             ServerStorage.getInstance().init();
-        } catch (ServerException e) {
+
+            StatusStorage.getInstance().init();
+        } catch (IOException | ServerException e) {
             e.printStackTrace();
         }
     }

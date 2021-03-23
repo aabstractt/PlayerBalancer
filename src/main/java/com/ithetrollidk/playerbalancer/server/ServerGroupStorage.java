@@ -1,6 +1,5 @@
 package com.ithetrollidk.playerbalancer.server;
 
-import dev.waterdog.ProxyServer;
 import dev.waterdog.network.ServerInfo;
 
 import java.util.ArrayList;
@@ -43,7 +42,11 @@ public class ServerGroupStorage {
         List<ServerInfo> servers = new ArrayList<>();
 
         for (BungeeServer server : this.servers.values()) {
-            servers.add(ProxyServer.getInstance().getServerInfo(server.getName()));
+            if (server.getStatus() == null || !server.getStatus().isOnline()) {
+                continue;
+            }
+
+            servers.add(server.getServerInfo());
         }
 
         return servers;

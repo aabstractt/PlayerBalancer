@@ -18,7 +18,7 @@ public class RandomFillerPriority implements Priority {
         int max = Integer.MIN_VALUE;
 
         for (ServerInfo server : group.getServersInfo()) {
-            if (server.getServerName().equals(targetServer.getServerName())) continue;
+            if (targetServer != null && server.getServerName().equals(targetServer.getServerName())) continue;
 
             int count = server.getPlayers().size();
 

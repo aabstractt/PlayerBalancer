@@ -8,6 +8,7 @@ import com.ithetrollidk.playerbalancer.priority.random.RandomLowestPriority;
 import com.ithetrollidk.playerbalancer.priority.random.RandomPriority;
 import com.ithetrollidk.playerbalancer.server.ServerGroupStorage;
 import dev.waterdog.ProxyServer;
+import dev.waterdog.network.ServerInfo;
 
 import java.security.SecureRandom;
 import java.util.List;
@@ -42,6 +43,14 @@ public class PriorityHandler {
         ProxyServer.getInstance().getLogger().info("Priority not found... Using default priority");
 
         return PriorityEnum.NORMAL.getPriority();
+    }
+
+    public ServerInfo requestServer(ServerGroupStorage group) {
+        return requestServer(null, group);
+    }
+
+    public ServerInfo requestServer(ServerInfo targetServer, ServerGroupStorage group) {
+        return this.getGroupPriority(group).requestServer(targetServer, group);
     }
 
     public enum PriorityEnum {

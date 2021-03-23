@@ -1,8 +1,10 @@
 package com.ithetrollidk.playerbalancer.server;
 
 import com.ithetrollidk.playerbalancer.PlayerBalancer;
+import com.ithetrollidk.playerbalancer.config.Configuration;
+import com.ithetrollidk.playerbalancer.priority.PriorityHandler;
+import dev.waterdog.ProxyServer;
 import dev.waterdog.network.ServerInfo;
-import dev.waterdog.utils.Configuration;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,23 +21,30 @@ public class ServerStorage {
         return instance;
     }
 
-    @SuppressWarnings("unchecked")
     public void init() throws ServerException {
-        Configuration config = PlayerBalancer.getInstance().getConfig();
+        Configuration configuration = PlayerBalancer.getInstance().getConfiguration();
 
-        if (!config.exists("groups")) {
+        if (configuration.getGroups().isEmpty()) {
             throw new ServerException("Groups section not found");
         }
 
-        ((Map<String, Map<String, Object>>) config.get("groups")).forEach((k, v) -> {
+        configuration.getGroups().forEach((name, group) -> {
             Map<String, BungeeServer> servers = new HashMap<>();
 
-            for (Map<String, Object> data : (List<Map<String, Object>>) v.get("servers")) {
-                servers.put(data.get("name").toString(), new BungeeServer(k, data.get("name").toString(), (Integer) data.get("slots")));
-            }
+            for (String server : group.getServers()) servers.put(server, new BungeeServer(name, server));
 
-            this.groups.add(new ServerGroupStorage(k, (String) v.getOrDefault("priority", "NORMAL"), servers));
+            this.groups.add(new ServerGroupStorage(name, group.getPriority(), servers));
         });
+
+        ProxyServer.getInstance().setJoinHandler(proxiedPlayer -> PriorityHandler.getInstance().requestServer(ServerStorage.getInstance().getDefaultGroup()));
+    }
+
+    public List<ServerGroupStorage> getGroups() {
+        return this.groups;
+    }
+
+    public ServerGroupStorage getDefaultGroup() {
+        return this.getGroup("Lobby");
     }
 
     public ServerGroupStorage getGroup(String groupName) {
