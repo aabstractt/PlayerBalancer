@@ -44,7 +44,7 @@ public class ServerStorage {
     }
 
     public ServerGroupStorage getDefaultGroup() {
-        return this.getGroup("Lobby");
+        return this.getGroup(PlayerBalancer.getInstance().getConfiguration().getDefaultGroup());
     }
 
     public ServerGroupStorage getGroup(String groupName) {

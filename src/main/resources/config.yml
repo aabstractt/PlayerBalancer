@@ -10,3 +10,5 @@ groups:
   Lobby:
     priority: NORMAL
     servers: ["Lobby1"]
+
+defaultGroup: "Lobby"
