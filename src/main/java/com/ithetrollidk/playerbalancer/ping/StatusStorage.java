@@ -50,6 +50,8 @@ public class StatusStorage {
     }
 
     public void ping(ServerInfo server, Callback<ServerStatus> callback) {
+        if (server == null) return;
+
         ProxyServer.getInstance().getScheduler().scheduleAsync(() -> server.ping(1000, TimeUnit.MILLISECONDS).whenComplete(((rakNetPong, throwable) -> {
             if (rakNetPong == null) {
                 callback.done(null, throwable);
@@ -91,12 +93,14 @@ public class StatusStorage {
     private static int readVarInt(ByteBuf in) {
         int i = 0;
         int j = 0;
+
         while (true) {
             int k = in.readByte();
             i |= (k & 0x7F) << j++ * 7;
             if (j > 5) throw new RuntimeException("VarInt too big");
             if ((k & 0x80) != 128) break;
         }
+
         return i;
     }
 }
