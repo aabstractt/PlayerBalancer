@@ -23,7 +23,7 @@ public class StatusStorage {
     }
 
     public void init() {
-        ProxyServer.getInstance().getLogger().info(String.format("Starting the ping task, the interval is %s", 20));
+        ProxyServer.getInstance().getLogger().info(String.format("Starting the ping task, the interval is %s", 100));
 
         ProxyServer.getInstance().getScheduler().scheduleRepeating(() -> {
             for (ServerGroupStorage groupStorage : ServerStorage.getInstance().getGroups()) {

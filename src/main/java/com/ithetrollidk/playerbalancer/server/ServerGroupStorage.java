@@ -12,12 +12,16 @@ public class ServerGroupStorage {
 
     private final String priority;
 
+    private final String parent;
+
     private final Map<String, BungeeServer> servers;
 
-    public ServerGroupStorage(String name, String priority, Map<String, BungeeServer> servers) {
+    public ServerGroupStorage(String name, String priority, String parent, Map<String, BungeeServer> servers) {
         this.name = name;
 
         this.priority = priority;
+
+        this.parent = parent;
 
         this.servers = servers;
     }
@@ -28,6 +32,10 @@ public class ServerGroupStorage {
 
     public String getPriority() {
         return this.priority;
+    }
+
+    public ServerGroupStorage getParent() {
+        return ServerStorage.getInstance().getGroup(this.parent);
     }
 
     public Boolean containsServer(String serverName) {

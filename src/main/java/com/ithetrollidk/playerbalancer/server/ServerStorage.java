@@ -1,6 +1,7 @@
 package com.ithetrollidk.playerbalancer.server;
 
 import com.ithetrollidk.playerbalancer.PlayerBalancer;
+import com.ithetrollidk.playerbalancer.ReconnectHandler;
 import com.ithetrollidk.playerbalancer.config.Configuration;
 import com.ithetrollidk.playerbalancer.priority.PriorityHandler;
 import dev.waterdog.ProxyServer;
@@ -33,10 +34,12 @@ public class ServerStorage {
 
             for (String server : group.getServers()) servers.put(server, new BungeeServer(name, server));
 
-            this.groups.add(new ServerGroupStorage(name, group.getPriority(), servers));
+            this.groups.add(new ServerGroupStorage(name, group.getPriority(), group.getParent(), servers));
         });
 
         ProxyServer.getInstance().setJoinHandler(proxiedPlayer -> PriorityHandler.getInstance().requestServer(ServerStorage.getInstance().getDefaultGroup()));
+
+        ProxyServer.getInstance().setReconnectHandler(new ReconnectHandler());
     }
 
     public List<ServerGroupStorage> getGroups() {
@@ -58,10 +61,10 @@ public class ServerStorage {
     }
 
     public ServerGroupStorage getGroupByServer(ServerInfo serverInfo) {
-        for (ServerGroupStorage groupStorage : this.groups) {
-            if (!groupStorage.containsServer(serverInfo.getServerName())) continue;
+        for (ServerGroupStorage group : this.groups) {
+            if (!group.containsServer(serverInfo.getServerName())) continue;
 
-            return groupStorage;
+            return group;
         }
 
         return null;

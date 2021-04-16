@@ -30,10 +30,8 @@ public class PlayerBalancer extends Plugin {
 
         this.saveResource("config.yml");
 
-        Yaml yaml = new Yaml(new CustomClassLoaderConstructor(Configuration.class.getClassLoader()));
-
         try (InputStream in = new FileInputStream(this.getDataFolder().toString() + "/config.yml")) {
-            this.configuration = yaml.loadAs(in, Configuration.class);
+            this.configuration = (new Yaml(new CustomClassLoaderConstructor(Configuration.class.getClassLoader()))).loadAs(in, Configuration.class);
 
             ServerStorage.getInstance().init();
 

@@ -1,6 +1,7 @@
 package com.ithetrollidk.playerbalancer.priority.normal;
 
 import com.ithetrollidk.playerbalancer.priority.Priority;
+import com.ithetrollidk.playerbalancer.priority.PriorityHandler;
 import com.ithetrollidk.playerbalancer.server.ServerGroupStorage;
 import dev.waterdog.network.ServerInfo;
 
@@ -20,6 +21,10 @@ public class FillerPriority implements Priority {
             if (betterServer.getPlayers().size() > serverInfo.getPlayers().size()) continue;
 
             betterServer = serverInfo;
+        }
+
+        if (betterServer == null) {
+            betterServer = PriorityHandler.getInstance().requestServer(group.getParent());
         }
 
         return betterServer;

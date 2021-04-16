@@ -1,6 +1,7 @@
 package com.ithetrollidk.playerbalancer.priority.random;
 
 import com.ithetrollidk.playerbalancer.priority.Priority;
+import com.ithetrollidk.playerbalancer.priority.PriorityHandler;
 import com.ithetrollidk.playerbalancer.server.ServerGroupStorage;
 import dev.waterdog.network.ServerInfo;
 
@@ -25,11 +26,16 @@ public class RandomFillerPriority implements Priority {
             if (count >= max) {
                 if (count > max) {
                     max = count;
+
                     results.clear();
                 }
 
                 results.add(server);
             }
+        }
+
+        if (results.isEmpty()) {
+            return PriorityHandler.getInstance().requestServer(group.getParent());
         }
 
         return random(results);

@@ -9,6 +9,14 @@ groups:
 
   Lobby:
     priority: NORMAL
-    servers: ["Lobby1"]
+    servers: ["Lobby1", "Lobby2"]
+  SWLobby:
+    priority: RANDOM
+    servers: ["SWLobby1", "SWLobby2"]
+    parent: "Lobby"
+  SW:
+    priority: RANDOM
+    servers: []
+    parent: "SWLobby"
 
 defaultGroup: "Lobby"
