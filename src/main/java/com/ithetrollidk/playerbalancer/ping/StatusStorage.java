@@ -1,7 +1,6 @@
 package com.ithetrollidk.playerbalancer.ping;
 
 import com.ithetrollidk.playerbalancer.Callback;
-import com.ithetrollidk.playerbalancer.PlayerBalancer;
 import com.ithetrollidk.playerbalancer.server.BungeeServer;
 import com.ithetrollidk.playerbalancer.server.ServerGroupStorage;
 import com.ithetrollidk.playerbalancer.server.ServerStorage;
@@ -40,10 +39,10 @@ public class StatusStorage {
                 status = new ServerStatus();
             }
 
-            PlayerBalancer.getInstance().getLogger().info(String.format(
+            /*PlayerBalancer.getInstance().getLogger().info(String.format(
                     "Updated server %s, status: [Players: %s, Maximum Players: %s, Online: %s]",
                     server.getName(), status.getOnlineCount(), status.getMaxPlayers(), status.isOnline()
-            ));
+            ));*/
 
             server.setStatus(status);
         });
@@ -71,6 +70,9 @@ public class StatusStorage {
         })));
     }
 
+    /**
+     * Code by https://github.com/jamezrin/PlayerBalancer
+     */
     private static void read(byte[] in, int len, byte[] bytes) {
         int n = 0;
 

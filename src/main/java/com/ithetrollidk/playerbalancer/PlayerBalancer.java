@@ -1,6 +1,7 @@
 package com.ithetrollidk.playerbalancer;
 
 import com.ithetrollidk.playerbalancer.config.Configuration;
+import com.ithetrollidk.playerbalancer.listener.PreTransferListener;
 import com.ithetrollidk.playerbalancer.ping.StatusStorage;
 import com.ithetrollidk.playerbalancer.server.ServerException;
 import com.ithetrollidk.playerbalancer.server.ServerStorage;
@@ -36,6 +37,8 @@ public class PlayerBalancer extends Plugin {
             ServerStorage.getInstance().init();
 
             StatusStorage.getInstance().init();
+
+            new PreTransferListener();
         } catch (IOException | ServerException e) {
             e.printStackTrace();
         }

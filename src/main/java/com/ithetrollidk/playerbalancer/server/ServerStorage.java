@@ -3,6 +3,7 @@ package com.ithetrollidk.playerbalancer.server;
 import com.ithetrollidk.playerbalancer.PlayerBalancer;
 import com.ithetrollidk.playerbalancer.ReconnectHandler;
 import com.ithetrollidk.playerbalancer.config.Configuration;
+import com.ithetrollidk.playerbalancer.config.GroupList;
 import com.ithetrollidk.playerbalancer.priority.PriorityHandler;
 import dev.waterdog.ProxyServer;
 import dev.waterdog.network.ServerInfo;
@@ -29,13 +30,17 @@ public class ServerStorage {
             throw new ServerException("Groups section not found");
         }
 
-        configuration.getGroups().forEach((name, group) -> {
+        for (Map.Entry<String, GroupList> storageEntry : configuration.getGroups().entrySet()) {
+            GroupList group = storageEntry.getValue();
+
             Map<String, BungeeServer> servers = new HashMap<>();
 
-            for (String server : group.getServers()) servers.put(server, new BungeeServer(name, server));
+            for (String server : group.getServers()) {
+                servers.put(server, new BungeeServer(storageEntry.getKey(), server));
+            }
 
-            this.groups.add(new ServerGroupStorage(name, group.getPriority(), group.getParent(), servers));
-        });
+            this.groups.add(new ServerGroupStorage(storageEntry.getKey(), group.getPriority(), group.getParent(), servers));
+        }
 
         ProxyServer.getInstance().setJoinHandler(proxiedPlayer -> PriorityHandler.getInstance().requestServer(ServerStorage.getInstance().getDefaultGroup()));
 
