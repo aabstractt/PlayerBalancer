@@ -1,13 +1,14 @@
 package com.ithetrollidk.playerbalancer.listener;
 
+import com.ithetrollidk.playerbalancer.PlayerLocker;
 import com.ithetrollidk.playerbalancer.priority.PriorityHandler;
 import com.ithetrollidk.playerbalancer.server.ServerGroupStorage;
 import com.ithetrollidk.playerbalancer.server.ServerStorage;
-import dev.waterdog.ProxyServer;
-import dev.waterdog.event.Event;
-import dev.waterdog.event.defaults.PreTransferEvent;
-import dev.waterdog.network.ServerInfo;
-import dev.waterdog.player.ProxiedPlayer;
+import dev.waterdog.waterdogpe.ProxyServer;
+import dev.waterdog.waterdogpe.event.Event;
+import dev.waterdog.waterdogpe.event.defaults.PreTransferEvent;
+import dev.waterdog.waterdogpe.network.ServerInfo;
+import dev.waterdog.waterdogpe.player.ProxiedPlayer;
 
 public class PreTransferListener extends Event {
 
@@ -19,6 +20,7 @@ public class PreTransferListener extends Event {
         ProxiedPlayer player = ev.getPlayer();
 
         if (player.hasPermission("playerbalancer.bypass")) return;
+        if (PlayerLocker.isLocked(player)) return;
 
         ServerInfo serverInfo = ev.getTargetServer();
 
@@ -31,6 +33,9 @@ public class PreTransferListener extends Event {
         if (targetServerInfo == null) {
             targetServerInfo = serverInfo;
         }
+
+        PlayerLocker.lock(player);
+        ProxyServer.getInstance().getScheduler().scheduleDelayed(() -> PlayerLocker.unlock(player), 5 * 20);
 
         ev.setTargetServer(targetServerInfo);
     }

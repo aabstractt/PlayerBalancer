@@ -3,7 +3,7 @@ package com.ithetrollidk.playerbalancer.priority.random;
 import com.ithetrollidk.playerbalancer.priority.Priority;
 import com.ithetrollidk.playerbalancer.priority.PriorityHandler;
 import com.ithetrollidk.playerbalancer.server.ServerGroupStorage;
-import dev.waterdog.network.ServerInfo;
+import dev.waterdog.waterdogpe.network.ServerInfo;
 
 import static com.ithetrollidk.playerbalancer.priority.PriorityHandler.random;
 

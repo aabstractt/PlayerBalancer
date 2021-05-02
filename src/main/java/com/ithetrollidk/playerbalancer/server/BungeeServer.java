@@ -1,8 +1,8 @@
 package com.ithetrollidk.playerbalancer.server;
 
 import com.ithetrollidk.playerbalancer.ping.ServerStatus;
-import dev.waterdog.ProxyServer;
-import dev.waterdog.network.ServerInfo;
+import dev.waterdog.waterdogpe.ProxyServer;
+import dev.waterdog.waterdogpe.network.ServerInfo;
 
 public class BungeeServer {
 

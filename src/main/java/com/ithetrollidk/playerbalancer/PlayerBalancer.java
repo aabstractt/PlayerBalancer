@@ -5,7 +5,7 @@ import com.ithetrollidk.playerbalancer.listener.PreTransferListener;
 import com.ithetrollidk.playerbalancer.ping.StatusStorage;
 import com.ithetrollidk.playerbalancer.server.ServerException;
 import com.ithetrollidk.playerbalancer.server.ServerStorage;
-import dev.waterdog.plugin.Plugin;
+import dev.waterdog.waterdogpe.plugin.Plugin;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.CustomClassLoaderConstructor;
 

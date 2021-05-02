@@ -7,8 +7,8 @@ import com.ithetrollidk.playerbalancer.priority.random.RandomFillerPriority;
 import com.ithetrollidk.playerbalancer.priority.random.RandomLowestPriority;
 import com.ithetrollidk.playerbalancer.priority.random.RandomPriority;
 import com.ithetrollidk.playerbalancer.server.ServerGroupStorage;
-import dev.waterdog.ProxyServer;
-import dev.waterdog.network.ServerInfo;
+import dev.waterdog.waterdogpe.ProxyServer;
+import dev.waterdog.waterdogpe.network.ServerInfo;
 
 import java.security.SecureRandom;
 import java.util.List;
@@ -34,7 +34,7 @@ public class PriorityHandler {
     }
 
     public Priority getGroupPriority(ServerGroupStorage group) {
-        for(PriorityEnum priority : PriorityEnum.values()) {
+        for (PriorityEnum priority : PriorityEnum.values()) {
             if (group.getPriority().equals(priority.getValue())) {
                 return priority.getPriority();
             }

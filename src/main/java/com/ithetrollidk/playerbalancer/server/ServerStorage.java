@@ -1,12 +1,13 @@
 package com.ithetrollidk.playerbalancer.server;
 
 import com.ithetrollidk.playerbalancer.PlayerBalancer;
+import com.ithetrollidk.playerbalancer.PlayerLocker;
 import com.ithetrollidk.playerbalancer.ReconnectHandler;
 import com.ithetrollidk.playerbalancer.config.Configuration;
 import com.ithetrollidk.playerbalancer.config.GroupList;
 import com.ithetrollidk.playerbalancer.priority.PriorityHandler;
-import dev.waterdog.ProxyServer;
-import dev.waterdog.network.ServerInfo;
+import dev.waterdog.waterdogpe.ProxyServer;
+import dev.waterdog.waterdogpe.network.ServerInfo;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,7 +43,12 @@ public class ServerStorage {
             this.groups.add(new ServerGroupStorage(storageEntry.getKey(), group.getPriority(), group.getParent(), servers));
         }
 
-        ProxyServer.getInstance().setJoinHandler(proxiedPlayer -> PriorityHandler.getInstance().requestServer(ServerStorage.getInstance().getDefaultGroup()));
+        ProxyServer.getInstance().setJoinHandler(proxiedPlayer -> {
+            PlayerLocker.lock(proxiedPlayer);
+            ProxyServer.getInstance().getScheduler().scheduleDelayed(() -> PlayerLocker.unlock(proxiedPlayer), 5 * 20);
+
+            return PriorityHandler.getInstance().requestServer(ServerStorage.getInstance().getDefaultGroup());
+        });
 
         ProxyServer.getInstance().setReconnectHandler(new ReconnectHandler());
     }
