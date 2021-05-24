@@ -38,7 +38,7 @@ public class PlayerBalancer extends Plugin {
 
             StatusStorage.getInstance().init();
 
-            new PreTransferListener();
+            //new PreTransferListener();
         } catch (IOException | ServerException e) {
             e.printStackTrace();
         }

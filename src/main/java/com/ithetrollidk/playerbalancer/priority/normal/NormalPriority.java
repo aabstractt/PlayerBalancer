@@ -10,6 +10,10 @@ public class NormalPriority implements Priority {
 
     @Override
     public ServerInfo requestServer(ServerInfo targetServer, ServerGroupStorage group) {
+        if (group == null) {
+            return null;
+        }
+
         for (BungeeServer server : group.getServers().values()) {
             if (targetServer != null && server.getName().equals(targetServer.getServerName())) continue;
 

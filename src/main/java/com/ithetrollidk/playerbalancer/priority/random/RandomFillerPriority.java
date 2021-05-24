@@ -14,6 +14,10 @@ public class RandomFillerPriority implements Priority {
 
     @Override
     public ServerInfo requestServer(ServerInfo targetServer, ServerGroupStorage group) {
+        if (group == null) {
+            return null;
+        }
+
         List<ServerInfo> results = new ArrayList<>();
 
         int max = Integer.MIN_VALUE;

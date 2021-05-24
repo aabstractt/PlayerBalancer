@@ -11,6 +11,10 @@ public class LowestPriority implements Priority {
     public ServerInfo requestServer(ServerInfo targetServer, ServerGroupStorage group) {
         ServerInfo betterServer = null;
 
+        if (group == null) {
+            return null;
+        }
+
         for (ServerInfo serverInfo : group.getServersInfo()) {
             if (betterServer == null) {
                 betterServer = serverInfo;

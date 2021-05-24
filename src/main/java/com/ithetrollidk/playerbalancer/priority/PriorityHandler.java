@@ -46,7 +46,7 @@ public class PriorityHandler {
     }
 
     public ServerInfo requestServer(ServerGroupStorage group) {
-        return requestServer(null, group);
+        return group != null ? requestServer(null, group) : null;
     }
 
     public ServerInfo requestServer(ServerInfo targetServer, ServerGroupStorage group) {
