@@ -1,6 +1,6 @@
 package com.ithetrollidk.playerbalancer.server;
 
-import dev.waterdog.waterdogpe.network.ServerInfo;
+import dev.waterdog.waterdogpe.network.serverinfo.ServerInfo;
 
 import java.util.ArrayList;
 import java.util.List;
