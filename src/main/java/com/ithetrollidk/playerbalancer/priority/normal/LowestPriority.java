@@ -3,7 +3,7 @@ package com.ithetrollidk.playerbalancer.priority.normal;
 import com.ithetrollidk.playerbalancer.priority.Priority;
 import com.ithetrollidk.playerbalancer.priority.PriorityHandler;
 import com.ithetrollidk.playerbalancer.server.ServerGroupStorage;
-import dev.waterdog.waterdogpe.network.ServerInfo;
+import dev.waterdog.waterdogpe.network.serverinfo.ServerInfo;
 
 public class LowestPriority implements Priority {
 

@@ -5,7 +5,7 @@ import com.ithetrollidk.playerbalancer.server.BungeeServer;
 import com.ithetrollidk.playerbalancer.server.ServerGroupStorage;
 import com.ithetrollidk.playerbalancer.server.ServerStorage;
 import dev.waterdog.waterdogpe.ProxyServer;
-import dev.waterdog.waterdogpe.network.ServerInfo;
+import dev.waterdog.waterdogpe.network.serverinfo.ServerInfo;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 

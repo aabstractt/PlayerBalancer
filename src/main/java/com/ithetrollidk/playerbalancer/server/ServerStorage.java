@@ -7,7 +7,7 @@ import com.ithetrollidk.playerbalancer.config.Configuration;
 import com.ithetrollidk.playerbalancer.config.GroupList;
 import com.ithetrollidk.playerbalancer.priority.PriorityHandler;
 import dev.waterdog.waterdogpe.ProxyServer;
-import dev.waterdog.waterdogpe.network.ServerInfo;
+import dev.waterdog.waterdogpe.network.serverinfo.ServerInfo;
 
 import java.util.ArrayList;
 import java.util.HashMap;

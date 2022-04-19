@@ -7,7 +7,7 @@ import com.ithetrollidk.playerbalancer.server.ServerStorage;
 import dev.waterdog.waterdogpe.ProxyServer;
 import dev.waterdog.waterdogpe.event.Event;
 import dev.waterdog.waterdogpe.event.defaults.PreTransferEvent;
-import dev.waterdog.waterdogpe.network.ServerInfo;
+import dev.waterdog.waterdogpe.network.serverinfo.ServerInfo;
 import dev.waterdog.waterdogpe.player.ProxiedPlayer;
 
 public class PreTransferListener extends Event {

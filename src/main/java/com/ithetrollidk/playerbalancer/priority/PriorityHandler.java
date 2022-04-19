@@ -8,7 +8,7 @@ import com.ithetrollidk.playerbalancer.priority.random.RandomLowestPriority;
 import com.ithetrollidk.playerbalancer.priority.random.RandomPriority;
 import com.ithetrollidk.playerbalancer.server.ServerGroupStorage;
 import dev.waterdog.waterdogpe.ProxyServer;
-import dev.waterdog.waterdogpe.network.ServerInfo;
+import dev.waterdog.waterdogpe.network.serverinfo.ServerInfo;
 
 import java.security.SecureRandom;
 import java.util.List;
