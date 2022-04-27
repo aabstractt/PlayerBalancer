@@ -12,16 +12,20 @@ public class ReconnectHandler implements IReconnectHandler {
 
     @Override
     public ServerInfo getFallbackServer(ProxiedPlayer proxiedPlayer, ServerInfo serverInfo, String s) {
+        if (PlayerLocker.isLocked(proxiedPlayer)) { // Check if the player is locked to don't request other server again
+            return null;
+        }
+
         ServerGroupStorage group = ServerStorage.getInstance().getGroupByServer(serverInfo);
 
         if (group == null) {
             group = ServerStorage.getInstance().getDefaultGroup();
         }
 
-        ServerGroupStorage groupParent = group.getParent();
+        ServerGroupStorage parent = group.getParent();
 
-        if (groupParent == null) {
-            groupParent = group;
+        if (parent == null) {
+            parent = group;
         }
 
         proxiedPlayer.sendMessage("§cThe server you were previously on went down, you have been connected to a fallback server");
@@ -29,6 +33,6 @@ public class ReconnectHandler implements IReconnectHandler {
         PlayerLocker.lock(proxiedPlayer);
         ProxyServer.getInstance().getScheduler().scheduleDelayed(() -> PlayerLocker.unlock(proxiedPlayer), 5 * 20);
 
-        return PriorityHandler.getInstance().requestServer(groupParent);
+        return PriorityHandler.getInstance().requestServer(parent);
     }
 }
